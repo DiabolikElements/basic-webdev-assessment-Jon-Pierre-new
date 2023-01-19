@@ -25,9 +25,61 @@ try {
                 http_response_code(200);
                 die(json_encode($controller->loadAll()));
             }
-            break;
+            break;              
         case 'POST':
             //implement your code here
+            header("Access-Control-Allow-Origin: *");
+            header("Content-Type: application/json; charset=UTF-8");
+            header("Access-Control-Allow-Methods: GET");
+            header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+            $data = array(
+                array(
+                'id' => 'NgoVlyDhTS',
+                'title' => 'Make Bed',
+                'description' => 'Use the good linen this time please',
+                'done' => true
+                ),
+                array(
+                    'id' => 'skHMaKsqOb',
+                    'title' => 'Pack Dishwasher',
+                    'description' => '',
+                    'done' => false
+                ),
+                array(
+                    'id' => 'YgnovUnGmB',
+                    'title' => 'Wash Dishes',
+                    'description' => 'Hand wash the Royal Albert tea set',
+                    'done' => false
+                ),
+                );
+                if(!empty($_GET['search'])) {
+                    $key = array_search($_GET['search'], array_column($data, 'title'),true);
+                    $id = $data[$key]['id'];
+                    $title = $data[$key]['title'];
+                    $description = $data[$key]['description'];
+                    $done = $data[$key]['done'];
+                    $result = array(
+                    'id' => $id,
+                    'title' => $title,
+                    'description' => $description,
+                    'done' => $done
+                    'status' => 'success'
+                    );
+                    } else {
+                    foreach($data as $d) {
+                    $result['todo'][] = array(
+                    'id' => $d['id'],
+                    'title' => $d['title'],
+                    'description' => $d['description'],
+                    'done' => $d['done'],
+                    );
+                    }
+                    $result['status'][] = 'success';
+                    }
+                    http_response_code(200);
+                    echo json_encode($result);
+
+
             break;
         case 'PUT':
             //implement your code here
