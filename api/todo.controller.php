@@ -34,11 +34,23 @@ class TodoController {
 
     public function create(Todo $todo) : bool {
         // implement your code here
-        
+        if(!empty($newData)){
+            $todo['id'] = $id;
+            $jsonData = file_get_contents($this->jsonFile); 
+            $data = json_decode($jsonData, true);
+            $data = !empty($data)?array_filter($data):$data;
+            if(!empty($data)){
+                array_push($data, $newData);
+            }else{
+                $data[] = $newData;
+            }
+            $create= file_put_contents($this->jsonFile, json_encode($data));
+            return $create?$id:false;
+        }else{
 
-
-        return true;
+        return false;
     }
+}
 
     public function update(string $id, Todo $todo) : bool {
         // implement your code here
@@ -59,7 +71,7 @@ class TodoController {
         return true;
     }
 
-    
+
 
     // add any additional functions you need below
 }
