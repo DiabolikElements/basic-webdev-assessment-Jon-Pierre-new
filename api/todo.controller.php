@@ -42,13 +42,24 @@ class TodoController {
 
     public function update(string $id, Todo $todo) : bool {
         // implement your code here
+        foreach($this->todos as $todo => $id){
+            if($todo['id'] == $id){ 
+               $this->todos[$todo][$id] = $value;
+            }
+         }
+         $this->storeData();
         return true;
     }
 
     public function delete(string $id) : bool {
         // implement your code here
+        $todo = Task::findOrFail($id);
+        $todo->delete();
+        return $this->setSuccessResponse([], 204);
         return true;
     }
+
+    
 
     // add any additional functions you need below
 }
