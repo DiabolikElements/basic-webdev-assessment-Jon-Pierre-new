@@ -28,13 +28,14 @@ result.innerHTML = this.responseText;
     console.log(todo);
 }
 
+
 function deleteTodo(todo) {
     // implement your code here
     let todo = localStorage.getItem("todo");
-    todoArray = JSON.parse(todo);
-    todoArray.splice(ind, 1);
-    localStorage.setItem("todo", JSON.stringify(todoArray));
-    displayTodo();
+   todoArray = JSON.parse(todo);
+   todoArray.splice(ind, 1);
+   localStorage.setItem("todo", JSON.stringify(todoArray));
+   displayTodo();
     console.log("calling deleteTodo");
     console.log(todo);
 }
